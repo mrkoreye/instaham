@@ -1,0 +1,25 @@
+<head>
+  <title>instaham</title>
+</head>
+
+<body>
+  <h1>STATS</h1>
+
+  {{> tagsummary}}
+  {{> input}}
+</body>
+
+<template name="tagsummary">
+  <div class="summary">
+    <span>There are <span class="{{loadingTotal}}">{{totalNumTags}}</span> post(s) with the tag #{{tag}}</span>
+    <br>
+    <span>There are <span class="{{loadingUnique}}">{{numUniqueUsers}}</span> people that have used the tag #{{tag}}</span>
+  </div>
+</template>
+
+<template name="input">
+  <form name="tag">
+    #<input type="text" name="tagvalue" value="{{tag}}"/>
+    <button type="submit">Search</button>
+  </form>
+</template>
