@@ -1,6 +1,6 @@
 if (Meteor.isClient) {
-  Session.setDefault('totalNumTags', '.');
-  Session.setDefault('numUniqueUsers', '.');
+  Session.setDefault('totalNumTags', '');
+  Session.setDefault('numUniqueUsers', '');
   Session.setDefault('tag', 'shopstyleit');
 
   var findTotalTags = function (tag) {
@@ -21,7 +21,13 @@ if (Meteor.isClient) {
 
   var updateTagData = function () {
     findTotalTags(Session.get('tag'));
-    // findUniqueUsersWithTag(Session.get('tag'));
+    findUniqueUsersWithTag(Session.get('tag'));
+  }
+
+  var resetSessionValues = function (tag) {
+    Session.set('tag', tag);
+    Session.set('totalNumTags', '');
+    Session.set('numUniqueUsers', '');
   }
 
   Tracker.autorun(updateTagData);
@@ -37,7 +43,7 @@ if (Meteor.isClient) {
       return Session.get('tag');
     },
     loadingTotal: function () {
-      if (Session.get('totalNumTags') === '.') {
+      if (Session.get('totalNumTags') === '') {
         return 'loading'
       }
       else {
@@ -45,7 +51,7 @@ if (Meteor.isClient) {
       }
     },
     loadingUnique: function () {
-      if (Session.get('numUniqueUsers') === '.') {
+      if (Session.get('numUniqueUsers') === '') {
         return 'loading'
       }
       else {
@@ -58,7 +64,7 @@ if (Meteor.isClient) {
     'submit': function (event) {
       event.preventDefault();
       tag = event.target[0].value;
-      Session.set('tag', tag);
+      resetSessionValues(tag);
     }
   });
 
@@ -114,9 +120,9 @@ if (Meteor.isServer) {
           })
         }
 
-        if (numUniqueUsers > 2000) {
+        if (numUniqueUsers > 1000) {
           keepLooking = false;
-          return 'over 1000';
+          return { count: 'over 1000' };
         }
 
       }

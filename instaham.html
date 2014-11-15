@@ -1,25 +1,36 @@
 <head>
   <title>instaham</title>
+  <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-  <h1>STATS</h1>
+  <div class="main">
+    {{> tagsummary}}
+    {{> input}}
+  </div>
 
-  {{> tagsummary}}
-  {{> input}}
+  {{> footer}}
 </body>
 
 <template name="tagsummary">
+  <h1>#{{tag}}</h1>
   <div class="summary">
-    <span>There are <span class="{{loadingTotal}}">{{totalNumTags}}</span> post(s) with the tag #{{tag}}</span>
-    <br>
-    <span>There are <span class="{{loadingUnique}}">{{numUniqueUsers}}</span> people that have used the tag #{{tag}}</span>
+    <span><span class="{{loadingTotal}}"><span class="loading-icon"></span></span>{{totalNumTags}} post(s) from <span class="{{loadingUnique}}"><span class="loading-icon"></span></span>{{numUniqueUsers}} different people</span>
   </div>
 </template>
 
 <template name="input">
   <form name="tag">
     #<input type="text" name="tagvalue" value="{{tag}}"/>
-    <button type="submit">Search</button>
+    <button type="submit">New Search</button>
   </form>
+</template>
+
+<template name="footer">
+  <div class="footer">
+    <div class="github-link">
+      <a href="https://github.com/mrkoreye/instaham">Code on GitHub</a>
+    </div>
+    <div class="about">Instagram stats for any tag</div>
+  </div>
 </template>
