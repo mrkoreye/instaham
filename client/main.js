@@ -19,6 +19,8 @@ var getTagInfo = function() {
   if (newTagInfo) {
     newTagInfo.users = Helpers.sortUsers(newTagInfo.users)
     Session.set('tagInfo', newTagInfo);
+  } else {
+    updateTagData();
   }
 }
 

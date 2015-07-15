@@ -82,7 +82,6 @@ form {
 }
 
 .loading-icon {
-  display: none;
   border: 3px solid white;
   -webkit-border-radius: 30px;
   height: 50px;
@@ -92,6 +91,7 @@ form {
   opacity: 0;
   margin: 25px auto 0;
 }
+
 @-webkit-keyframes pulsate {
   0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
   50% {opacity: 1.0;}
