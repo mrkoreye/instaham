@@ -1,0 +1,79 @@
+<head>
+  <title>instaham</title>
+  <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <div class="main">
+    {{> tagsummary}}
+    {{> input}}
+    {{> users}}
+  </div>
+
+  {{> footer}}
+</body>
+
+<template name="tagsummary">
+  <h1><a href="http://instagram.com/explore/tags/{{tag}}" target="_blank">#{{tag}}</a></h1>
+  <div class="summary">
+    <div>{{totalNumTags}} post(s) from {{numUniqueUsers}} different people</div>
+  </div>
+</template>
+
+<template name="input">
+  <form name="tag">
+    #<input type="text" name="tagvalue" value="{{tag}}"/>
+    <button type="submit">Search</button>
+  </form>
+  {{#if loading}}
+    <div class="loading-icon"></div>
+  {{/if}}
+  {{#if errorMessage}}
+    <div class="error-message">
+      <span>{{errorMessage}}</span>
+      <div class="close-x">x</div>
+    </div>
+  {{/if}}
+</template>
+
+<template name="users">
+  <div class="user-summary">
+    {{#with tagInfo}}
+      <div class="last-updated">
+        <div>Last Updated: {{tagInfo.lastUpdated}}</div>
+        <div class="update-results">Recount Results</div>
+        <select class="sort-by">
+          <option value="postCountDesc">Sort by num. posts DESC</option>
+          <option value="postCountAsc">Sort by num. posts ASC</option>
+          <option value="followersCountDesc">Sort by num. followers DESC</option>
+          <option value="followersCountAsc">Sort by num. followers ASC</option>
+        </select>
+      </div>
+
+      <table>
+        <tr>
+          <th>Instagram Handle</th>
+          <th>Followers</th>
+          <th>Posts</th>
+        </tr>
+      {{#each tagInfo.users}}
+        <tr class="user">
+          <td><a target="_blank" href="http://instagram.com/{{username}}" class="username">{{username}}</a></td>
+          <td>{{followers}}</td>
+          <td class="count">{{count}}</td>
+        </tr>
+      {{/each}}
+    </table>
+    {{/with}}
+  </div>
+</template>
+
+<template name="footer">
+  <div class="footer">
+    <div class="github-link">
+      <a href="https://github.com/mrkoreye/instaham">Code on GitHub</a>
+    </div>
+    <div class="about">Instagram stats for any tag</div>
+  </div>
+</template>
+
