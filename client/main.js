@@ -19,8 +19,6 @@ var getTagInfo = function() {
   if (newTagInfo) {
     newTagInfo.users = Helpers.sortUsers(newTagInfo.users)
     Session.set('tagInfo', newTagInfo);
-  } else {
-    updateTagData();
   }
 }
 
@@ -55,6 +53,11 @@ Template.input.events({
     event.preventDefault();
     tag = event.target[0].value;
     Session.set('tag', tag);
+
+    var newTagInfo = Tags.findOne({tagName: tag});
+    if (!newTagInfo) {
+      updateTagData()
+    }
   },
 
   'click .close-x': function(event) {
